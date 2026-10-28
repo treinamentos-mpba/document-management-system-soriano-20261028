@@ -12,16 +12,21 @@
 
 const express = require('express');
 
+const documentsRoutes = require('./routes/documents.routes');
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
-// Endpoint de verificação de saúde. As demais rotas (/upload, /documents,
-// /documents/:id/download) serão implementadas durante o Passo 2.
+// Endpoint de verificação de saúde.
 app.get('/health', (req, res) => {
   res.json({ status: 'ok' });
 });
+
+// Rotas do recurso de documentos: POST /upload, GET /documents e
+// GET /documents/:id/download.
+app.use(documentsRoutes);
 
 if (require.main === module) {
   app.listen(PORT, () => {
